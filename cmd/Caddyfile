@@ -1,0 +1,50 @@
+# Global configuration for automatic https
+# {
+#   email tapiacarlos32@gmail.com # email for Let's Encrypt notifications
+#   auto_https off
+# }
+
+localhost:8080 {
+	reverse_proxy localhost:8081
+}
+
+# log
+#   output file storage/logs/caddy_access.log
+#   format "{{.RemoteAddr}} - {{.Identify}} [{{.Time}}] \"{{.Method}} {{.URI}} HTTP/{{.Proto}}\" {{.Status}} {{.Bytes}} \"{{.Referer}}\" \"{{.UserAgent}}\""
+#   # log_append "custom_field: {{.Request.Header.X-Custom-Header}}"
+#   roll_size 10mb 
+#   roll_keep 20 
+#   roll_keep for 720h
+# }
+
+# cylum.dev {
+#
+#   # Serve traffic over HTTPS
+#   reverse_proxy /api/* http://backend:8080
+#
+#   # Prevent abuse to the application
+#   rate_limit /api/* {
+#     zone api 10r/s 100
+#   }
+#
+#   # Serve traffic over HTTPS
+#   file_server /static/* {
+#     root /var/www/static
+#   }
+#
+#   # Add caching for audio files 
+#   header /audio/* {
+#     Cache-Control "public, max-age=3600"
+#   }
+#
+#   # Cache responses for audio for faster response time
+#   cache {
+#     path /tmp/caddy-cache
+#     match_path /audio/*
+#     default_max_age 3600
+#   }
+#
+# }
+# localhost:2019 {
+#   respond "Caddy Admin Interface"
+# }
