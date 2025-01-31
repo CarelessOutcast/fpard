@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/carelessoutcast/fpard/cmd/backend/handlers"
 )
 
 var addr = flag.String("address", "localhost:8081", "The listening address of the service")
@@ -25,6 +27,8 @@ func Start(ctx context.Context) {
 
 func run(ctx context.Context, addr string) error {
 	mux := http.NewServeMux()
+
+	mux.HandleFunc("/upload", handlers.UploadPDF)
 
 	mux.Handle("/",
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
