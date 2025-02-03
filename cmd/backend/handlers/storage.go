@@ -4,15 +4,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"time"
+	// "time"
 
 	"github.com/carelessoutcast/fpard/cmd/backend/services"
 )
 
-const uploadDir = "./storage/pdfs"
-
 func UploadPDF(w http.ResponseWriter, r *http.Request) {
-	// Limit the size of the pdf (security)
+	// Limit the size of the pdf
 	err := r.ParseMultipartForm(32 << 20) // 32 mb
 	if err != nil {
 		http.Error(w, "Unable to parse the form", http.StatusBadRequest)
@@ -35,8 +33,10 @@ func UploadPDF(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("File uploaded successfully: %s", fileName)
 	fmt.Fprintf(w, "File uploaded successfully: %s", fileName)
+
 }
 
 func generateFileName(fName string) string {
-	return fmt.Sprintf("%d_%s", time.Now().Unix(), fName)
+	// return fmt.Sprintf("%d_%s", time.Now().Unix(), fName)
+	return fmt.Sprintf("%d_%s", 0, fName)
 }

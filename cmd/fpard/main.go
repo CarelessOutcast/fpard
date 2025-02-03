@@ -11,6 +11,7 @@ import (
 )
 
 var addr = flag.String("address", "localhost:8081", "The listening address of the service")
+var extractedBinary []byte
 
 func Start(ctx context.Context) {
 	flag.Parse()
@@ -29,6 +30,7 @@ func run(ctx context.Context, addr string) error {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/upload", handlers.UploadPDF)
+	mux.HandleFunc("/extract/{id}", handlers.ExtractPDF)
 
 	mux.Handle("/",
 		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
